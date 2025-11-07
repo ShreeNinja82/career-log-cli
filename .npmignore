@@ -1,0 +1,12 @@
+src/
+tsconfig.json
+*.test.ts
+*.spec.ts
+.vscode/
+.idea/
+*.log
+.git/
+.gitignore
+.github/
+coverage/
+.nyc_output/

@@ -1,0 +1,59 @@
+{
+  "name": "career-log-cli",
+  "version": "1.0.0",
+  "description": "Generate professional career logs from git commits - works offline with optional AI enhancement",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "career-log": "./bin/career-log.js",
+    "career-log-cli": "./bin/career-log.js"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "patterns",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
+    "dev": "tsx watch src/cli.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "career",
+    "resume",
+    "git",
+    "commits",
+    "achievements",
+    "cli",
+    "developer-tools"
+  ],
+  "author": "siannovallc <siannovallc@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShreeNinja82/career-log-cli.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ShreeNinja82/career-log-cli/issues"
+  },
+  "homepage": "https://github.com/ShreeNinja82/career-log-cli#readme",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^14.0.2",
+    "ora": "^9.0.0",
+    "simple-git": "^3.30.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
