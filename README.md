@@ -4,18 +4,18 @@
 
 ## Installation
 
-npm install -g career-log-cliOr use with npx (no installation required):
+npm install -g career-log-cli Or use with npx (no installation required):
 
-npx career-log-cli --repo ./my-project## Quick Start
+npx career-log-cli --repo ./careerlog## Quick Start
 
 # Basic usage (offline, pattern-based)
-career-log --repo ./my-project --output career-log.json
+career-log --repo ./careerlog --output career-log.json
 
 # With AI enhancement
-career-log --repo ./my-project --api-key $OPENAI_API_KEY
+career-log --repo ./careerlog --api-key $OPENAI_API_KEY
 
 # Enterprise mode (guaranteed offline)
-career-log --repo ./my-project --enterprise## Features
+career-log --repo ./careerlog --enterprise## Features
 
 - ✅ **Works completely offline** - Pattern-based generation, no external APIs required
 - ✅ **Enterprise-compliant** - Zero data transmission with `--enterprise` flag
