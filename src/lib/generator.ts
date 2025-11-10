@@ -56,7 +56,7 @@ export async function generateCareerLog(options: any) {
         continue;
       }
 
-      const achievement = await generateAchievement(commit, repoPath, {
+      const achievementResult = await generateAchievement(commit, repoPath, diffAnalysis, {
         ...options,
         skipPR: options.skipPr,
         githubToken: options.githubToken,
@@ -66,7 +66,8 @@ export async function generateCareerLog(options: any) {
 
       entries.push({
         date: commit.date,
-        achievement,
+        achievement: achievementResult.achievement,
+        confidence: achievementResult.confidence,
         impact: diffAnalysis.impactLevel,
         commit: commit.hash.substring(0, 8),
         filesChanged: commit.files?.length || 0,

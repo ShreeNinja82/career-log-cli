@@ -1,6 +1,7 @@
 export interface CareerLogEntry {
   date: string;
   achievement: string;
+  confidence?: number;
   impact: 'high' | 'medium' | 'low';
   commit: string;
   filesChanged?: number;
@@ -80,10 +81,11 @@ function formatMarkdown(data: CareerLog): string {
 }
 
 function formatCSV(data: CareerLog): string {
-  const headers = ['Date', 'Achievement', 'Impact', 'Files Changed', 'Lines Changed', 'File Types', 'Signals', 'Critical Files', 'Commit Hash'];
+  const headers = ['Date', 'Achievement', 'Confidence', 'Impact', 'Files Changed', 'Lines Changed', 'File Types', 'Signals', 'Critical Files', 'Commit Hash'];
   const rows = data.entries.map((entry) => [
     entry.date,
     `"${entry.achievement.replace(/"/g, '""')}"`,
+    entry.confidence?.toFixed(2) || '',
     entry.impact,
     entry.filesChanged?.toString() || '0',
     entry.linesChanged?.toString() || '0',
