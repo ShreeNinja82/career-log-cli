@@ -6,6 +6,8 @@ import simpleGit, { SimpleGit } from 'simple-git';
 export interface AchievementResult {
   achievement: string;
   confidence: number;
+  aiGenerated?: boolean;
+  dataLocal?: boolean;
 }
 
 // Component detection patterns
@@ -144,6 +146,153 @@ async function getDiffContent(commit: Commit, repoPath: string): Promise<string>
   }
 }
 
+/**
+ * Generate achievement using OpenAI GPT-3.5-turbo
+ */
+async function generateWithOpenAI(
+  commit: Commit,
+  diffContent: string,
+  diffAnalysis: DiffAnalysis,
+  apiKey: string
+): Promise<AchievementResult | null> {
+  try {
+    const prompt = `Analyze this git commit and generate a professional achievement statement (max 150 characters).
+
+Commit Message: ${commit.message}
+${commit.body ? `Commit Body: ${commit.body}` : ''}
+Files Changed: ${commit.files?.join(', ') || 'None'}
+Lines Changed: +${commit.insertions || 0} / -${commit.deletions || 0}
+Impact Level: ${diffAnalysis.impactLevel}
+Signals: ${diffAnalysis.signals.join(', ')}
+File Types: ${diffAnalysis.fileTypes.join(', ')}
+
+Diff Summary:
+${diffContent.substring(0, 2000)}...
+
+Generate a concise, professional achievement statement that:
+- Highlights the key accomplishment
+- Mentions the component/area affected
+- Is suitable for a resume or career log
+- Is maximum 150 characters
+
+Return only the achievement statement, no additional text.`;
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'gpt-3.5-turbo',
+        messages: [
+          {
+            role: 'system',
+            content: 'You are a professional career log generator. Generate concise, impactful achievement statements from git commits.',
+          },
+          {
+            role: 'user',
+            content: prompt,
+          },
+        ],
+        max_tokens: 100,
+        temperature: 0.7,
+      }),
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = await response.json() as any;
+    const achievement = data.choices?.[0]?.message?.content?.trim();
+
+    if (achievement) {
+      return {
+        achievement: achievement.substring(0, 150),
+        confidence: 0.95,
+        aiGenerated: true,
+        dataLocal: false,
+      };
+    }
+
+    return null;
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
+ * Generate achievement using local Ollama instance
+ */
+async function generateWithOllama(
+  commit: Commit,
+  diffContent: string,
+  diffAnalysis: DiffAnalysis,
+  model: string = 'llama3.2',
+  ollamaUrl: string = 'http://localhost:11434'
+): Promise<AchievementResult | null> {
+  try {
+    const prompt = `Analyze this git commit and generate a professional achievement statement (max 150 characters).
+
+Commit Message: ${commit.message}
+${commit.body ? `Commit Body: ${commit.body}` : ''}
+Files Changed: ${commit.files?.join(', ') || 'None'}
+Lines Changed: +${commit.insertions || 0} / -${commit.deletions || 0}
+Impact Level: ${diffAnalysis.impactLevel}
+Signals: ${diffAnalysis.signals.join(', ')}
+File Types: ${diffAnalysis.fileTypes.join(', ')}
+
+Diff Summary:
+${diffContent.substring(0, 2000)}...
+
+Generate a concise, professional achievement statement that:
+- Highlights the key accomplishment
+- Mentions the component/area affected
+- Is suitable for a resume or career log
+- Is maximum 150 characters
+
+Return only the achievement statement, no additional text.`;
+
+    const response = await fetch(`${ollamaUrl}/api/generate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        model: model,
+        prompt: prompt,
+        stream: false,
+        options: {
+          temperature: 0.7,
+          num_predict: 100,
+        },
+      }),
+    });
+
+    if (!response.ok) {
+      return null;
+    }
+
+    const data = await response.json() as any;
+    const achievement = data.response?.trim();
+
+    if (achievement) {
+      return {
+        achievement: achievement.substring(0, 150),
+        confidence: 0.85,
+        aiGenerated: true,
+        dataLocal: true,
+      };
+    }
+
+    return null;
+  } catch (error) {
+    // Ollama not running or error - return null to fallback
+    return null;
+  }
+}
+
 export async function generateAchievement(
   commit: Commit,
   repoPath: string,
@@ -160,13 +309,21 @@ export async function generateAchievement(
     gitlabUrl?: string;
   }
 ): Promise<AchievementResult> {
+  // Skip low-impact commits randomly to save API costs (50% chance)
+  const shouldSkipForAI = diffAnalysis.impactLevel === 'low' && 
+    (options.apiKey || options.useLocalLlm) && 
+    Math.random() < 0.5;
+
   // Check if we should use PR info (when commit message is not helpful and PR exists)
   const usePRInfo = !options.skipPR && !isCommitMessageHelpful(commit.message) && commit.prNumber;
   
   let achievementText = '';
   let confidence = 0.75; // Default confidence for pattern-based
+  let aiGenerated = false;
+  let dataLocal = true; // Pattern-based is data-local
   
-  if (usePRInfo) {
+  // Try PR info first (if not skipped for AI)
+  if (!shouldSkipForAI && usePRInfo) {
     // Use PR title if already fetched
     if (commit.prTitle) {
       achievementText = commit.prTitle;
@@ -196,6 +353,32 @@ export async function generateAchievement(
         // PR number found but no title - use PR reference
         achievementText = `PR #${prInfo.number}`;
         confidence = 0.7;
+      }
+    }
+  }
+
+  // Try AI enhancement if no achievement yet and not enterprise mode
+  if (!achievementText && !options.enterprise && !shouldSkipForAI) {
+    const diffContent = await getDiffContent(commit, repoPath);
+
+    // Try OpenAI first if API key provided
+    if (options.apiKey) {
+      const aiResult = await generateWithOpenAI(commit, diffContent, diffAnalysis, options.apiKey);
+      if (aiResult) {
+        return aiResult;
+      }
+    }
+
+    // Try local LLM if enabled
+    if (options.useLocalLlm) {
+      const ollamaResult = await generateWithOllama(
+        commit,
+        diffContent,
+        diffAnalysis,
+        options.ollamaModel || 'llama3.2'
+      );
+      if (ollamaResult) {
+        return ollamaResult;
       }
     }
   }
@@ -260,5 +443,7 @@ export async function generateAchievement(
   return {
     achievement: achievementText || commit.message.substring(0, 60),
     confidence: confidence,
+    aiGenerated: aiGenerated,
+    dataLocal: dataLocal,
   };
 }

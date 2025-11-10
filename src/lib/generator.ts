@@ -68,6 +68,8 @@ export async function generateCareerLog(options: any) {
         date: commit.date,
         achievement: achievementResult.achievement,
         confidence: achievementResult.confidence,
+        aiGenerated: achievementResult.aiGenerated,
+        dataLocal: achievementResult.dataLocal,
         impact: diffAnalysis.impactLevel,
         commit: commit.hash.substring(0, 8),
         filesChanged: commit.files?.length || 0,
