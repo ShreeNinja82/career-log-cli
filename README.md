@@ -1,6 +1,6 @@
 # career-log-cli
 
-> Generate professional career logs from git commits - works completely offline with optional AI enhancement
+> Generate professional career logs from git commits - works completely offline with optional AI enhancement. Support for PR integration as well.
 
 ## Installation
 
