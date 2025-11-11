@@ -52,6 +52,19 @@ export async function runCLI(args: string[]) {
 
   const options = program.opts();
   
+  // Get all non-option arguments (potential commands or repo paths)
+  const nonOptionArgs = args.filter(arg => 
+    !arg.startsWith('-') && 
+    arg !== 'career-log' && 
+    arg !== 'node' && 
+    !arg.includes('career-log.js') &&
+    arg !== 'bin/career-log.js'
+  );
+  
+  // Check if first non-option arg is 'generate' command
+  const hasGenerateCommand = nonOptionArgs[0] === 'generate';
+  const command = hasGenerateCommand ? 'generate' : null;
+  
   // Workaround: manually check args for --repo if not parsed
   if (!options.repo) {
     const repoIndex = args.indexOf('--repo');
@@ -62,7 +75,13 @@ export async function runCLI(args: string[]) {
       if (repoShortIndex >= 0 && repoShortIndex + 1 < args.length) {
         options.repo = args[repoShortIndex + 1];
       } else {
-        options.repo = process.cwd();
+        // If we have a non-option arg that's not 'generate', it might be a repo path
+        const potentialRepo = hasGenerateCommand ? nonOptionArgs[1] : nonOptionArgs[0];
+        if (potentialRepo && potentialRepo !== 'generate') {
+          options.repo = potentialRepo;
+        } else {
+          options.repo = process.cwd();
+        }
       }
     }
   }
@@ -77,5 +96,12 @@ export async function runCLI(args: string[]) {
     options.skipPr = true;
   }
 
-  await generateCareerLog(options);
+  // Handle commands - if command is 'generate' or no command specified, run generate
+  if (!command || command === 'generate') {
+    await generateCareerLog(options);
+  } else {
+    console.error(`Unknown command: ${command}`);
+    console.error('Run "career-log --help" for usage information.');
+    process.exit(1);
+  }
 }

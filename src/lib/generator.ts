@@ -8,8 +8,6 @@ import { analyzeImpact } from './impact-analyzer.js';
 import { formatOutput, CareerLog, CareerLogEntry } from './output-formatter.js';
 
 export async function generateCareerLog(options: any) {
-  const spinner = ora('Generating career log...').start();
-
   try {
     const repoPath = options.repo ? resolve(options.repo) : process.cwd();
     
@@ -24,11 +22,9 @@ export async function generateCareerLog(options: any) {
     const format = options.format || 'json';
     const skipLowImpact = options.skipLowImpact || false;
 
-    if (options.verbose) {
-      spinner.text = `Parsing git commits from ${repoPath}...`;
-    }
-
-    // Parse git commits
+    // Step 1: Extract commits
+    console.log('Extracting commits from repository...');
+    const spinner1 = ora().start();
     const commits = await parseGitCommits(repoPath, {
       limit,
       since: options.since,
@@ -36,15 +32,16 @@ export async function generateCareerLog(options: any) {
     });
 
     if (commits.length === 0) {
-      spinner.fail(chalk.red('No commits found'));
+      spinner1.stop();
+      console.error(chalk.red('No commits found'));
       process.exit(1);
     }
 
-    if (options.verbose) {
-      spinner.text = `Processing ${commits.length} commits...`;
-    }
+    spinner1.stop();
 
-    // Generate achievements with diff analysis
+    // Step 2: Analyze impact signals
+    console.log('Analyzing impact signals...');
+    const spinner2 = ora().start();
     const entries: CareerLogEntry[] = [];
 
     for (const commit of commits) {
@@ -80,6 +77,12 @@ export async function generateCareerLog(options: any) {
       });
     }
 
+    spinner2.stop();
+
+    // Step 3: Generate achievements
+    console.log('Generating achievements...');
+    const spinner3 = ora().start();
+    
     // Create career log
     const careerLog: CareerLog = {
       generatedAt: new Date().toISOString(),
@@ -92,11 +95,24 @@ export async function generateCareerLog(options: any) {
     const output = formatOutput(careerLog, format);
     writeFileSync(outputPath, output, 'utf-8');
 
-    spinner.succeed(chalk.green('Career log generation complete!'));
-    console.log(chalk.blue(`Output: ${outputPath}`));
-    console.log(chalk.gray(`Processed ${commits.length} commits, generated ${entries.length} entries`));
+    spinner3.stop();
+
+    // Calculate impact counts from generated entries
+    const impactCounts = {
+      high: entries.filter(e => e.impact === 'high').length,
+      medium: entries.filter(e => e.impact === 'medium').length,
+      low: entries.filter(e => e.impact === 'low').length,
+    };
+
+    // Display summary
+    console.log('');
+    console.log(chalk.green('✓') + ' ' + chalk.bold(`Generated ${entries.length} achievement${entries.length !== 1 ? 's' : ''}`));
+    console.log(chalk.green('✓') + ' ' + chalk.bold(`High-impact: ${impactCounts.high} achievement${impactCounts.high !== 1 ? 's' : ''}`));
+    console.log(chalk.green('✓') + ' ' + chalk.bold(`Medium-impact: ${impactCounts.medium} achievement${impactCounts.medium !== 1 ? 's' : ''}`));
+    console.log(chalk.green('✓') + ' ' + chalk.bold(`Saved to ${outputPath}`));
   } catch (error: any) {
-    spinner.fail(chalk.red('Failed to generate career log'));
+    console.error('');
+    console.error(chalk.red('✗ Failed to generate career log'));
     console.error(chalk.red(error.message));
     if (options.verbose) {
       console.error(error);

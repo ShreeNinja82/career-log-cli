@@ -1,128 +1,84 @@
 {
-  "generatedAt": "2025-11-10T07:41:01.117Z",
-  "repository": "/Users/shreenilfadia/Desktop/buildtechresume",
-  "totalCommits": 5,
+  "generatedAt": "2025-11-11T06:03:34.911Z",
+  "repository": "/Users/shreenilfadia/Desktop/career-log-cli",
+  "totalCommits": 3,
   "entries": [
     {
-      "date": "2025-11-07 11:24:53 -0500",
-      "achievement": "Enhanced UI by removing extra stats section from JobApplicationStats component for improved user experience.",
-      "confidence": 0.95,
-      "aiGenerated": true,
-      "dataLocal": false,
-      "impact": "low",
-      "commit": "f8b0ccf0",
-      "filesChanged": 1,
-      "linesChanged": 16,
+      "date": "2025-11-10 23:49:22 -0500",
+      "achievement": "Optimized Testing by optimizing",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "high",
+      "commit": "407bfa33",
+      "filesChanged": 11,
+      "linesChanged": 3899,
       "signals": [
-        "Small change: 16 lines",
-        "Few files: 1 file(s)"
+        "Critical file modified: package-lock.json",
+        "Critical file modified: package.json",
+        "Critical file modified: tsconfig.json",
+        "Critical file modified: vitest.config.ts",
+        "Critical keyword found: performance",
+        "Performance-related changes detected",
+        "Large refactoring detected",
+        "Large change: 3899 lines"
       ],
       "fileTypes": [
+        "Config",
         "TypeScript"
       ],
       "changeMetrics": {
-        "totalLines": 16,
-        "filesModified": 1,
-        "criticalFilesModified": 0
+        "totalLines": 3899,
+        "filesModified": 11,
+        "criticalFilesModified": 4
       }
     },
     {
-      "date": "2025-11-06 10:12:24 -0500",
-      "achievement": "Enhanced Job Tracker UI: Improved navigation, filters, form, kanban layout, and user authentication for streamlined user experience.",
-      "confidence": 0.95,
-      "aiGenerated": true,
-      "dataLocal": false,
+      "date": "2025-11-10 02:41:49 -0500",
+      "achievement": "Optimized UI by optimizing",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
       "impact": "high",
-      "commit": "82274f49",
-      "filesChanged": 7,
-      "linesChanged": 418,
+      "commit": "886110f5",
+      "filesChanged": 4,
+      "linesChanged": 448,
       "signals": [
-        "Critical keyword found: auth",
+        "Critical keyword found: performance",
+        "Performance-related changes detected",
         "Large refactoring detected"
       ],
       "fileTypes": [
+        "Config",
         "TypeScript"
       ],
       "changeMetrics": {
-        "totalLines": 418,
-        "filesModified": 7,
-        "criticalFilesModified": 0
-      }
-    },
-    {
-      "date": "2025-11-06 09:32:40 -0500",
-      "achievement": "Enhanced blog post styling for improved readability and navigation in the Footer and BlogPostPage components.",
-      "confidence": 0.95,
-      "aiGenerated": true,
-      "dataLocal": false,
-      "impact": "high",
-      "commit": "bb13c30c",
-      "filesChanged": 3,
-      "linesChanged": 141,
-      "signals": [
-        "Critical file modified: supabase/migrations/20251105000001_insert_second_blog_post.sql",
-        "Critical keyword found: auth",
-        "Performance-related changes detected"
-      ],
-      "fileTypes": [
-        "SQL",
-        "TypeScript"
-      ],
-      "changeMetrics": {
-        "totalLines": 141,
-        "filesModified": 3,
-        "criticalFilesModified": 1
-      }
-    },
-    {
-      "date": "2025-11-05 23:35:49 -0500",
-      "achievement": "Implemented error handling for job application updates in JobApplicationKanban & JobTrackerDashboard components.",
-      "confidence": 0.95,
-      "aiGenerated": true,
-      "dataLocal": false,
-      "impact": "medium",
-      "commit": "26364fca",
-      "filesChanged": 4,
-      "linesChanged": 112,
-      "signals": [
-        "Moderate change: 112 lines",
-        "Multiple files: 4 files"
-      ],
-      "fileTypes": [
-        "TypeScript"
-      ],
-      "changeMetrics": {
-        "totalLines": 112,
+        "totalLines": 448,
         "filesModified": 4,
         "criticalFilesModified": 0
       }
     },
     {
-      "date": "2025-11-05 23:14:47 -0500",
-      "achievement": "Implemented Job Tracker with seamless document linking for job applications, enhancing user experience and efficiency.",
-      "confidence": 0.95,
-      "aiGenerated": true,
-      "dataLocal": false,
+      "date": "2025-11-10 02:01:30 -0500",
+      "achievement": "Optimized UI by optimizing",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
       "impact": "high",
-      "commit": "c5276d5d",
-      "filesChanged": 26,
-      "linesChanged": 4374,
+      "commit": "3ccf9f54",
+      "filesChanged": 3,
+      "linesChanged": 260,
       "signals": [
-        "Critical file modified: supabase/migrations/20251105000000_create_job_applications.sql",
         "Critical keyword found: performance",
-        "Performance-related changes detected",
-        "New feature implementation",
-        "Large change: 4374 lines"
+        "Performance-related changes detected"
       ],
       "fileTypes": [
-        "Markdown",
-        "SQL",
         "TypeScript"
       ],
       "changeMetrics": {
-        "totalLines": 4374,
-        "filesModified": 26,
-        "criticalFilesModified": 1
+        "totalLines": 260,
+        "filesModified": 3,
+        "criticalFilesModified": 0
       }
     }
   ]
