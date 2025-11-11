@@ -26,7 +26,7 @@ export interface CareerLog {
 
 export function formatOutput(
   data: CareerLog,
-  format: 'json' | 'md' | 'csv'
+  format: 'json' | 'md'
 ): string {
   switch (format) {
     case 'json':
@@ -34,9 +34,6 @@ export function formatOutput(
 
     case 'md':
       return formatMarkdown(data);
-
-    case 'csv':
-      return formatCSV(data);
 
     default:
       return JSON.stringify(data, null, 2);
@@ -80,27 +77,4 @@ function formatMarkdown(data: CareerLog): string {
   }
 
   return output;
-}
-
-function formatCSV(data: CareerLog): string {
-  const headers = ['Date', 'Achievement', 'Confidence', 'AI Generated', 'Data Local', 'Impact', 'Files Changed', 'Lines Changed', 'File Types', 'Signals', 'Critical Files', 'Commit Hash'];
-  const rows = data.entries.map((entry) => [
-    entry.date,
-    `"${entry.achievement.replace(/"/g, '""')}"`,
-    entry.confidence?.toFixed(2) || '',
-    entry.aiGenerated ? 'Yes' : 'No',
-    entry.dataLocal ? 'Yes' : 'No',
-    entry.impact,
-    entry.filesChanged?.toString() || '0',
-    entry.linesChanged?.toString() || '0',
-    entry.fileTypes?.join('; ') || '',
-    entry.signals?.slice(0, 2).join('; ').replace(/"/g, '""') || '',
-    entry.changeMetrics?.criticalFilesModified?.toString() || '0',
-    entry.commit,
-  ]);
-
-  return [
-    headers.join(','),
-    ...rows.map((row) => row.map(cell => cell.includes(',') ? `"${cell}"` : cell).join(',')),
-  ].join('\n');
 }

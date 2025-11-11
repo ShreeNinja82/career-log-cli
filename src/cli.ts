@@ -30,7 +30,7 @@ export async function runCLI(args: string[]) {
     .option('--enterprise', 'Enterprise mode (no external APIs, data-local)')
     .option('--skip-low-impact', 'Randomly skip 50% of low-impact commits')
     .option('--confidence-threshold <0-1>', 'Minimum confidence for pattern matching', '0.5')
-    .option('--format <json|md|csv>', 'Output format', 'json')
+    .option('--format <json|md>', 'Output format', 'json')
     .option('--skip-pr', 'Skip PR parsing and only use commit messages')
     .option('--github-token <token>', 'GitHub API token for fetching PR details')
     .option('--gitlab-token <token>', 'GitLab API token for fetching PR details')
