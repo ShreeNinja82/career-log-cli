@@ -45,7 +45,32 @@ const ACHIEVEMENT_PATTERNS: Record<string, {
 }> = {
   performance: {
     keywords: ['performance', 'optimize', 'cache', 'speed', 'latency'],
-    template: (component: string, action?: string) => `Optimized ${component} by ${action || 'optimizing'}`,
+    template: (component: string, action?: string) => {
+      const componentLower = component.toLowerCase();
+      const isPerformanceComponent = componentLower.includes('performance');
+      
+      // Avoid redundancy: if component already contains "performance" and action is "optimizing"
+      if (isPerformanceComponent && action === 'optimizing') {
+        return `Optimized ${component}`;
+      }
+      
+      // Avoid redundancy: if action is "optimizing", use a different phrasing
+      if (action === 'optimizing') {
+        return `Optimized ${component} performance`;
+      }
+      
+      // Use specific actions when available
+      if (action && action !== 'optimizing') {
+        return `Optimized ${component} by ${action}`;
+      }
+      
+      // Default fallback - avoid adding "performance" if component already has it
+      if (isPerformanceComponent) {
+        return `Improved ${component}`;
+      }
+      
+      return `Improved ${component} performance`;
+    },
   },
   security: {
     keywords: ['security', 'encrypt', 'vulnerability', 'auth', 'sanitize'],
@@ -108,6 +133,32 @@ function extractComponent(files: string[] = [], diffContent: string = ''): strin
 function extractAction(commitMessage: string, diffContent: string = ''): string {
   const combined = `${commitMessage} ${diffContent}`.toLowerCase();
 
+  // More specific action detection from diff patterns (check these first for better specificity)
+  if (combined.includes('cache') || combined.includes('caching')) {
+    return 'implementing caching';
+  }
+  if (combined.includes('lazy') || combined.includes('lazyload')) {
+    return 'implementing lazy loading';
+  }
+  if (combined.includes('memo') || combined.includes('memoize')) {
+    return 'implementing memoization';
+  }
+  if (combined.includes('debounce') || combined.includes('throttle')) {
+    return 'implementing debouncing';
+  }
+  if (combined.includes('reduce') && combined.includes('render')) {
+    return 'reducing re-renders';
+  }
+  if (combined.includes('bundle') || combined.includes('webpack')) {
+    return 'reducing bundle size';
+  }
+  if (combined.includes('query') && (combined.includes('optimize') || combined.includes('index'))) {
+    return 'optimizing database queries';
+  }
+  if (combined.includes('image') && (combined.includes('compress') || combined.includes('optimize'))) {
+    return 'optimizing images';
+  }
+
   // Check for action keywords
   for (const [action, keywords] of Object.entries(ACTION_KEYWORDS)) {
     if (keywords.some(keyword => combined.includes(keyword))) {
@@ -132,6 +183,33 @@ function extractAction(commitMessage: string, diffContent: string = ''): string 
   if (addedLines > removedLines * 2) return 'implementing';
   if (removedLines > addedLines * 2) return 'fixing';
   return 'improving';
+}
+
+/**
+ * Clean up redundant text in achievements
+ */
+function cleanAchievementText(text: string): string {
+  let cleaned = text;
+  
+  // Fix common redundant patterns - catch "Optimized X by optimizing" and similar
+  cleaned = cleaned.replace(/\bOptimized (\w+) by optimizing\b/gi, (match, component) => {
+    const componentLower = component.toLowerCase();
+    // If component already contains "performance", just return "Optimized Component"
+    if (componentLower.includes('performance')) {
+      return `Optimized ${component}`;
+    }
+    // Otherwise add "performance"
+    return `Optimized ${component} performance`;
+  });
+  
+  cleaned = cleaned.replace(/\bImproved (\w+) by improving\b/gi, 'Improved $1');
+  cleaned = cleaned.replace(/\bEnhanced (\w+) by enhancing\b/gi, 'Enhanced $1');
+  cleaned = cleaned.replace(/\bFixed (\w+) by fixing\b/gi, 'Fixed $1');
+  
+  // Clean up any double spaces
+  cleaned = cleaned.replace(/\s+/g, ' ').trim();
+  
+  return cleaned;
 }
 
 /**
@@ -209,7 +287,7 @@ Return only the achievement statement, no additional text.`;
 
     if (achievement) {
       return {
-        achievement: achievement.substring(0, 150),
+        achievement: cleanAchievementText(achievement.substring(0, 150)),
         confidence: 0.95,
         aiGenerated: true,
         dataLocal: false,
@@ -251,6 +329,8 @@ Generate a concise, professional achievement statement that:
 - Mentions the component/area affected
 - Is suitable for a resume or career log
 - Is maximum 150 characters
+- Avoids redundancy (e.g., don't say "Optimized X by optimizing" - say "Optimized X performance" instead)
+- Uses specific actions when possible (e.g., "implementing caching" instead of just "optimizing")
 
 Return only the achievement statement, no additional text.`;
 
@@ -279,7 +359,7 @@ Return only the achievement statement, no additional text.`;
 
     if (achievement) {
       return {
-        achievement: achievement.substring(0, 150),
+        achievement: cleanAchievementText(achievement.substring(0, 150)),
         confidence: 0.85,
         aiGenerated: true,
         dataLocal: true,
@@ -441,7 +521,7 @@ export async function generateAchievement(
   }
   
   return {
-    achievement: achievementText || commit.message.substring(0, 60),
+    achievement: cleanAchievementText(achievementText || commit.message.substring(0, 60)),
     confidence: confidence,
     aiGenerated: aiGenerated,
     dataLocal: dataLocal,

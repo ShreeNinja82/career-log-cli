@@ -1,0 +1,411 @@
+{
+  "generatedAt": "2025-12-09T20:04:15.959Z",
+  "repository": "/Users/shreenilfadia/Desktop/career-log-cli",
+  "totalCommits": 17,
+  "entries": [
+    {
+      "date": "2025-11-13 22:32:25 -0500",
+      "achievement": "Completed high-impact config work",
+      "confidence": 0.6,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "high",
+      "commit": "729d4277",
+      "filesChanged": 2,
+      "linesChanged": 6,
+      "signals": [
+        "Critical file modified: package-lock.json",
+        "Critical file modified: package.json"
+      ],
+      "fileTypes": [
+        "Config"
+      ],
+      "changeMetrics": {
+        "totalLines": 6,
+        "filesModified": 2,
+        "criticalFilesModified": 2
+      }
+    },
+    {
+      "date": "2025-11-13 22:17:55 -0500",
+      "achievement": "Optimized UI by optimizing",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "high",
+      "commit": "db4ac5a9",
+      "filesChanged": 3,
+      "linesChanged": 3165,
+      "signals": [
+        "Critical file modified: package-lock.json",
+        "Critical keyword found: cache",
+        "Performance-related changes detected",
+        "Large refactoring detected",
+        "Large change: 3165 lines"
+      ],
+      "fileTypes": [
+        "Config"
+      ],
+      "changeMetrics": {
+        "totalLines": 3165,
+        "filesModified": 3,
+        "criticalFilesModified": 1
+      }
+    },
+    {
+      "date": "2025-11-11 01:46:30 -0500",
+      "achievement": "Optimized API by optimizing",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "high",
+      "commit": "24d8e076",
+      "filesChanged": 2,
+      "linesChanged": 294,
+      "signals": [
+        "Critical keyword found: performance",
+        "Performance-related changes detected"
+      ],
+      "fileTypes": [
+        "Config",
+        "Markdown"
+      ],
+      "changeMetrics": {
+        "totalLines": 294,
+        "filesModified": 2,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-11 01:06:21 -0500",
+      "achievement": "Optimized Performance by optimizing",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "high",
+      "commit": "02e9a8ae",
+      "filesChanged": 3,
+      "linesChanged": 214,
+      "signals": [
+        "Critical keyword found: performance",
+        "Performance-related changes detected",
+        "Large refactoring detected"
+      ],
+      "fileTypes": [
+        "Config",
+        "TypeScript"
+      ],
+      "changeMetrics": {
+        "totalLines": 214,
+        "filesModified": 3,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-11 01:05:36 -0500",
+      "achievement": "Optimized API by optimizing",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "high",
+      "commit": "6b1c439b",
+      "filesChanged": 1,
+      "linesChanged": 292,
+      "signals": [
+        "Critical keyword found: optimize",
+        "Performance-related changes detected",
+        "New feature implementation"
+      ],
+      "fileTypes": [
+        "Markdown"
+      ],
+      "changeMetrics": {
+        "totalLines": 292,
+        "filesModified": 1,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-10 23:49:22 -0500",
+      "achievement": "Optimized Testing by optimizing",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "high",
+      "commit": "407bfa33",
+      "filesChanged": 11,
+      "linesChanged": 3899,
+      "signals": [
+        "Critical file modified: package-lock.json",
+        "Critical file modified: package.json",
+        "Critical file modified: tsconfig.json",
+        "Critical file modified: vitest.config.ts",
+        "Critical keyword found: performance",
+        "Performance-related changes detected",
+        "Large refactoring detected",
+        "Large change: 3899 lines"
+      ],
+      "fileTypes": [
+        "Config",
+        "TypeScript"
+      ],
+      "changeMetrics": {
+        "totalLines": 3899,
+        "filesModified": 11,
+        "criticalFilesModified": 4
+      }
+    },
+    {
+      "date": "2025-11-10 02:41:49 -0500",
+      "achievement": "Optimized UI by optimizing",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "high",
+      "commit": "886110f5",
+      "filesChanged": 4,
+      "linesChanged": 448,
+      "signals": [
+        "Critical keyword found: performance",
+        "Performance-related changes detected",
+        "Large refactoring detected"
+      ],
+      "fileTypes": [
+        "Config",
+        "TypeScript"
+      ],
+      "changeMetrics": {
+        "totalLines": 448,
+        "filesModified": 4,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-10 02:01:30 -0500",
+      "achievement": "Optimized UI by optimizing",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "high",
+      "commit": "3ccf9f54",
+      "filesChanged": 3,
+      "linesChanged": 260,
+      "signals": [
+        "Critical keyword found: performance",
+        "Performance-related changes detected"
+      ],
+      "fileTypes": [
+        "TypeScript"
+      ],
+      "changeMetrics": {
+        "totalLines": 260,
+        "filesModified": 3,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-10 01:52:51 -0500",
+      "achievement": "Made system improvements",
+      "confidence": 0.6,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "low",
+      "commit": "9fb1e908",
+      "filesChanged": 1,
+      "linesChanged": 2,
+      "signals": [
+        "Small change: 2 lines",
+        "Few files: 1 file(s)"
+      ],
+      "fileTypes": [
+        "Markdown"
+      ],
+      "changeMetrics": {
+        "totalLines": 2,
+        "filesModified": 1,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-10 01:51:04 -0500",
+      "achievement": "Fixed Testing bug",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "high",
+      "commit": "f7d9cea6",
+      "filesChanged": 5,
+      "linesChanged": 58,
+      "signals": [
+        "Critical keyword found: critical"
+      ],
+      "fileTypes": [
+        "Config"
+      ],
+      "changeMetrics": {
+        "totalLines": 58,
+        "filesModified": 5,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-10 01:32:57 -0500",
+      "achievement": "Implemented System feature affecting 1 modules",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "low",
+      "commit": "e528c0df",
+      "filesChanged": 1,
+      "linesChanged": 2,
+      "signals": [
+        "Small change: 2 lines",
+        "Few files: 1 file(s)"
+      ],
+      "fileTypes": [
+        "Markdown"
+      ],
+      "changeMetrics": {
+        "totalLines": 2,
+        "filesModified": 1,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-10 01:30:14 -0500",
+      "achievement": "Implemented System feature affecting 1 modules",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "low",
+      "commit": "f98fcee7",
+      "filesChanged": 1,
+      "linesChanged": 2,
+      "signals": [
+        "Small change: 2 lines",
+        "Few files: 1 file(s)"
+      ],
+      "fileTypes": [
+        "Markdown"
+      ],
+      "changeMetrics": {
+        "totalLines": 2,
+        "filesModified": 1,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-07 22:53:32 -0500",
+      "achievement": "Fixed Testing bug",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "low",
+      "commit": "bd8437f7",
+      "filesChanged": 1,
+      "linesChanged": 1,
+      "signals": [
+        "Small change: 1 lines",
+        "Few files: 1 file(s)"
+      ],
+      "fileTypes": [],
+      "changeMetrics": {
+        "totalLines": 1,
+        "filesModified": 1,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-07 22:53:14 -0500",
+      "achievement": "Implemented Testing feature affecting 1 modules",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "low",
+      "commit": "63a5556b",
+      "filesChanged": 1,
+      "linesChanged": 5,
+      "signals": [
+        "Small change: 5 lines",
+        "Few files: 1 file(s)"
+      ],
+      "fileTypes": [],
+      "changeMetrics": {
+        "totalLines": 5,
+        "filesModified": 1,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-07 22:48:43 -0500",
+      "achievement": "Optimized Auth by optimizing",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "high",
+      "commit": "8df12ace",
+      "filesChanged": 11,
+      "linesChanged": 1369,
+      "signals": [
+        "Critical file modified: package-lock.json",
+        "Critical file modified: package.json",
+        "Critical keyword found: performance",
+        "Performance-related changes detected",
+        "Large change: 1369 lines"
+      ],
+      "fileTypes": [
+        "Config",
+        "TypeScript"
+      ],
+      "changeMetrics": {
+        "totalLines": 1369,
+        "filesModified": 11,
+        "criticalFilesModified": 2
+      }
+    },
+    {
+      "date": "2025-11-07 14:08:23 -0500",
+      "achievement": "Implemented API feature affecting 1 modules",
+      "confidence": 0.75,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "low",
+      "commit": "5b58d9f1",
+      "filesChanged": 1,
+      "linesChanged": 10,
+      "signals": [
+        "Small change: 10 lines",
+        "Few files: 1 file(s)"
+      ],
+      "fileTypes": [
+        "Markdown"
+      ],
+      "changeMetrics": {
+        "totalLines": 10,
+        "filesModified": 1,
+        "criticalFilesModified": 0
+      }
+    },
+    {
+      "date": "2025-11-07 12:48:23 -0500",
+      "achievement": "Made system improvements",
+      "confidence": 0.6,
+      "aiGenerated": false,
+      "dataLocal": true,
+      "impact": "low",
+      "commit": "cac6a842",
+      "filesChanged": 0,
+      "linesChanged": 0,
+      "signals": [
+        "Small change: 0 lines",
+        "Few files: 0 file(s)"
+      ],
+      "fileTypes": [],
+      "changeMetrics": {
+        "totalLines": 0,
+        "filesModified": 0,
+        "criticalFilesModified": 0
+      }
+    }
+  ]
+}
